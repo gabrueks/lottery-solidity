@@ -10,8 +10,6 @@ contract Lottery {
     address public manager;
     address[] public players;
 
-    mapping(address => bool) private Addresses;
-
     constructor() {
         manager = msg.sender;
     }
@@ -20,7 +18,6 @@ contract Lottery {
         require(msg.value > 0.01 ether);
         require(contains(msg.sender) == false);
         players.push(msg.sender);
-        Addresses[msg.sender] = true;
     }
 
     function getPlayers() public view returns (address[] memory) {
@@ -46,7 +43,12 @@ contract Lottery {
     }
 
     function contains(address addressToCheck) private view returns (bool) {
-        return Addresses[addressToCheck];
+        for (uint16 i = 0; i < players.length; i++) {
+            if (players[i] == addressToCheck) {
+                return true;
+            }
+        }
+        return false;
     }
 
     modifier restrictedToManager() {
