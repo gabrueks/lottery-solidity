@@ -33,7 +33,6 @@ const deploy = async () => {
       })
       .send({ from: accounts[0], gasPrice: "5200000000" });
 
-    console.log(abi);
     console.log("Contract deployed to: ", result.options.address);
 
     provider.engine.stop();
